@@ -13,9 +13,13 @@ defmodule PocRecaptchaWeb.PageController do
 
 
   def create(conn, params) do
+    IO.puts("verification time")
     case Recaptcha.verify(params["g-recaptcha-response"]) do
-      {:ok, _response} -> render(conn, "index.html", %{config: nil, response: "", error: ""})
-      {:error, _errors} -> render(conn, "index.html", %{config: nil, response: "", error: ""})
+      {:ok, response} -> IO.puts("success: #{inspect(response)}")
+        render(conn, "index.html", %{config: nil, response: "success", error: ""})
+      {:error, errors} ->
+        IO.puts("error: #{inspect(errors)}")
+        render(conn, "index.html", %{config: nil, response: "error", error: ""})
     end
   end
 

@@ -1,25 +1,16 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <h1><%= gettext "Welcome to %{name}!", name: "recaptcha" %></h1>
 </section>
 
-<%# <section class="row">
-  <article class="column">
-  </article>
-  <article class="column">
-  </article>
-</section> %>
-
-  <h2>reCAPTCHA v3 sample</h2>
   <%= form_for @conn, Routes.page_path(@conn, :create), fn f -> %>
-    <input id="submit" class="submit" type='button' name="btn-submit" value='verify' disabled>
+    <input id="submit" class="submit" type='submit' name="btn-submit" value='verify' disabled>
     <%= raw Recaptcha.Template.display(onload: "myOnLoadCallback", callback: "enableBtn",) %>
     <input id="recaptcha_token" name="recaptcha_token" type="hidden" value="">
-
   <% end %>
 
 <script> 
-function enableBtn(x) {
-  $( "input#submit , input[type='button']" ).prop("disabled", false);
+function enableBtn(){
+  jQuery("input#submit").attr("disabled",false)
 }
 
 function myOnLoadCallback() {
@@ -27,19 +18,18 @@ function myOnLoadCallback() {
 }
 </script>
 
-
-  <%= if @response != "" do %>
+<div>
+<%= if @response != "" do %>
   <h3>reCAPTCHA result</h3>
-  <textarea readonly=true cols=75>
-    <%= @response %>
-  </textarea>
-  <% end %>
+    <textarea readonly=true cols=75>
+      <%= @response %>
+    </textarea>
+<% end %>
 
-  <%= if @error != "" do %>
+<%= if @error != "" do %>
   <h3>reCAPTCHA error</h3>
   <textarea readonly=true cols=75>
     <%= @error %>
   </textarea>
-  <% end %>
+<% end %>
 </div>
-
