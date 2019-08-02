@@ -15,8 +15,10 @@ defmodule PocRecaptchaWeb.Router do
 
   scope "/", PocRecaptchaWeb do
     pipe_through :browser
+    # resources "/", PageController
 
-    get "/", PageController, :index
+    get  "/", PageController, :index
+    post "/", PageController, :create
   end
 
   # Other scopes may use custom stacks.

@@ -1,35 +1,45 @@
 <section class="phx-hero">
   <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed or maintainability.</p>
 </section>
 
-<section class="row">
+<%# <section class="row">
   <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
   </article>
   <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
   </article>
-</section>
+</section> %>
+
+  <h2>reCAPTCHA v3 sample</h2>
+  <%= form_for @conn, Routes.page_path(@conn, :create), fn f -> %>
+    <input id="submit" class="submit" type='button' name="btn-submit" value='verify' disabled>
+    <%= raw Recaptcha.Template.display(onload: "myOnLoadCallback", callback: "enableBtn",) %>
+    <input id="recaptcha_token" name="recaptcha_token" type="hidden" value="">
+
+  <% end %>
+
+<script> 
+function enableBtn(x) {
+  $( "input#submit , input[type='button']" ).prop("disabled", false);
+}
+
+function myOnLoadCallback() {
+  // perform extra actions here
+}
+</script>
+
+
+  <%= if @response != "" do %>
+  <h3>reCAPTCHA result</h3>
+  <textarea readonly=true cols=75>
+    <%= @response %>
+  </textarea>
+  <% end %>
+
+  <%= if @error != "" do %>
+  <h3>reCAPTCHA error</h3>
+  <textarea readonly=true cols=75>
+    <%= @error %>
+  </textarea>
+  <% end %>
+</div>
+

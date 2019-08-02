@@ -14,6 +14,10 @@ config :poc_recaptcha, PocRecaptchaWeb.Endpoint,
   render_errors: [view: PocRecaptchaWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: PocRecaptcha.PubSub, adapter: Phoenix.PubSub.PG2]
 
+config :recaptcha,
+  public_key: {:system, :string, "RECAPTCHA_SITE_KEY_LOCALHOST"},
+  secret: {:system, :string, "RECAPTCHA_SECRET_LOCALHOST"}
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
